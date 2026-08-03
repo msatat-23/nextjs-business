@@ -58,11 +58,10 @@ export function HeroDashboard() {
             {heroDashboardData.cards.map((card) => (
               <motion.div
                 key={card.id}
-                className={`p-3 rounded-xl border transition-all cursor-pointer ${
-                  card.usesChart && chartQuarter === defaultQuarter
-                    ? 'bg-[#f43f5e]/15 border-[#f43f5e]/40 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
-                    : 'bg-[#111827]/60 border-white/10 hover:bg-white/5'
-                }`}
+                className={`p-3 rounded-xl border transition-all cursor-pointer ${card.usesChart && chartQuarter === defaultQuarter
+                  ? 'bg-[#f43f5e]/15 border-[#f43f5e]/40 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
+                  : 'bg-[#111827]/60 border-white/10 hover:bg-white/5'
+                  }`}
                 onClick={() => card.usesChart && setChartQuarter(defaultQuarter)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
@@ -83,15 +82,14 @@ export function HeroDashboard() {
                 </span>
               </div>
               <div className="flex items-center gap-1 bg-[#030712] p-1 rounded-lg border border-white/10 self-start sm:self-auto">
-                {chartQuarters.map((q) => (
+                {chartQuarters.map((q: any) => (
                   <button
                     key={q}
                     onClick={() => setChartQuarter(q)}
-                    className={`px-2 py-1 rounded text-[0.7rem] font-bold cursor-pointer transition-all ${
-                      chartQuarter === q
-                        ? 'bg-[#f43f5e] text-white shadow-[0_0_10px_rgba(244,63,94,0.5)]'
-                        : 'text-gray-400 hover:text-white'
-                    }`}
+                    className={`px-2 py-1 rounded text-[0.7rem] font-bold cursor-pointer transition-all ${chartQuarter === q
+                      ? 'bg-[#f43f5e] text-white shadow-[0_0_10px_rgba(244,63,94,0.5)]'
+                      : 'text-gray-400 hover:text-white'
+                      }`}
                   >
                     {q}
                   </button>

@@ -40,7 +40,7 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-2 max-w-full">
-            <Link href={heroData.primaryCta.href} className="bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white px-7 py-3.5 min-h-[46px] rounded-xl font-sans text-[0.95rem] font-bold border border-transparent inline-flex items-center gap-3">
+            <Link href={heroData.primaryCta.href || ""} className="bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white px-7 py-3.5 min-h-[46px] rounded-xl font-sans text-[0.95rem] font-bold border border-transparent inline-flex items-center gap-3">
               <span>{heroData.primaryCta.label}</span>
               <ArrowRight size={18} />
             </Link>

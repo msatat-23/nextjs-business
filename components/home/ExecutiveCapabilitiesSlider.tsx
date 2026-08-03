@@ -155,9 +155,8 @@ export function ExecutiveCapabilitiesSlider() {
                   setDirection(idx > currentIndex ? 1 : -1);
                   setCurrentIndex(idx);
                 }}
-                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
-                  idx === currentIndex ? 'w-8 bg-[#f43f5e]' : 'w-2.5 bg-white/20 hover:bg-white/40'
-                }`}
+                className={`h-2.5 rounded-full transition-all duration-300 cursor-pointer ${idx === currentIndex ? 'w-8 bg-[#f43f5e]' : 'w-2.5 bg-white/20 hover:bg-white/40'
+                  }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
