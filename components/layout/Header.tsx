@@ -1,0 +1,111 @@
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+import { Layers, Menu, X, ArrowUpRight } from 'lucide-react';
+import { NavLink, navLinks } from '@/lib/data/navigation';
+import { requestSectionScroll, scrollToSection } from '@/lib/scroll';
+import { MobileMenu } from './MobileMenu';
+import { ContactModal } from '@/components/contact/ContactModal';
+
+export function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const isHome = pathname === '/';
+
+  const handleNavigate = (link: NavLink) => {
+    setMobileMenuOpen(false);
+
+    if (link.sectionId) {
+      if (isHome) {
+        setTimeout(() => scrollToSection(link.sectionId!), 50);
+      } else {
+        requestSectionScroll(link.sectionId);
+        router.push('/');
+      }
+      return;
+    }
+
+    router.push(link.href);
+  };
+
+  return (
+    <>
+      <header className="sticky top-0 z-50 backdrop-blur-md bg-[#030712]/92 border-b border-white/10 transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+          <Link href="/" className="flex items-center gap-3.5 no-underline cursor-pointer select-none">
+            <div className="w-9.5 h-9.5 rounded-xl bg-gradient-to-br from-[#f43f5e] to-[#a855f7] flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.35)] border border-white/20 shrink-0">
+              <Layers size={20} />
+            </div>
+            <div className="flex flex-col">
+              <div className="font-sans text-[1.12rem] sm:text-[1.12rem] font-black text-white tracking-wide leading-tight">
+                BUSINESS <span className="bg-gradient-to-r from-[#fb7185] to-[#c084fc] bg-clip-text text-transparent">DEVELOPER</span>
+              </div>
+              <div className="text-[0.62rem] tracking-[1.5px] text-gray-400 font-bold mt-0.5">ENTERPRISE PLATFORM</div>
+            </div>
+          </Link>
+
+          <nav className="hidden lg:flex items-center gap-1.5 bg-[#111827]/80 px-2 py-1.5 rounded-full border border-white/10">
+            {navLinks
+              .filter((link) => link.label !== 'Contact')
+              .map((link) => {
+                const isActive = link.sectionId ? false : link.href === pathname;
+                return (
+                  <button
+                    key={link.label}
+                    className={`font-sans text-[0.86rem] font-semibold transition-all duration-200 px-3.5 py-1.5 min-h-[38px] rounded-full cursor-pointer inline-flex items-center justify-center ${
+                      isActive
+                        ? 'bg-[#f43f5e]/20 text-[#fb7185] font-bold border border-[#f43f5e]/30'
+                        : 'text-gray-400 hover:text-white hover:bg-white/10 border border-transparent'
+                    }`}
+                    onClick={() => handleNavigate(link)}
+                  >
+                    {link.label}
+                  </button>
+                );
+              })}
+            <button
+              className={`font-sans text-[0.86rem] font-semibold transition-all duration-200 px-3.5 py-1.5 min-h-[38px] rounded-full cursor-pointer inline-flex items-center justify-center ${
+                pathname === '/contact'
+                  ? 'bg-[#f43f5e]/20 text-[#fb7185] font-bold border border-[#f43f5e]/30'
+                  : 'text-gray-400 hover:text-white hover:bg-white/10 border border-transparent'
+              }`}
+              onClick={() => handleNavigate({ label: 'Contact', href: '/contact' })}
+            >
+              Contact
+            </button>
+          </nav>
+
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setModalOpen(true)}
+              className="hidden sm:flex items-center gap-1.5 bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white border border-white/25 px-4 py-2 min-h-[40px] rounded-lg font-sans text-[0.85rem] font-bold cursor-pointer shadow-[0_4px_15px_rgba(244,63,94,0.35)] hover:-translate-y-0.5 hover:shadow-[0_6px_22px_rgba(244,63,94,0.5)] transition-all duration-200"
+            >
+              <span>Book Consultation</span>
+              <ArrowUpRight size={15} />
+            </button>
+
+            <button
+              className="flex lg:hidden text-gray-200 p-2 min-h-[44px] min-w-[44px] items-center justify-center rounded-lg hover:bg-white/10 cursor-pointer transition-colors"
+              onClick={() => setMobileMenuOpen((open) => !open)}
+              aria-label="Toggle navigation menu"
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+
+        <MobileMenu isOpen={mobileMenuOpen} activeHref={pathname} onNavigate={handleNavigate} onBookConsultation={() => { setMobileMenuOpen(false); setModalOpen(true); }} />
+      </header>
+
+      <ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
+  );
+}
+
+
