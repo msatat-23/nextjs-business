@@ -1,3 +1,4 @@
+import json from '../../data/methodology.json';
 import { MethodologyTab } from '@/types';
 
 export interface MethodologyContent {
@@ -11,61 +12,4 @@ export interface MethodologyContent {
   visualLabel: string;
 }
 
-export const methodologyTabs: MethodologyContent[] = [
-  {
-    id: 'execution',
-    label: 'Data-Driven Execution',
-    title: 'Continuous Market Feedback Loops',
-    desc: 'Every strategic milestone is validated against real customer acquisition data and unit economic performance. No static slide decks — only actionable revenue systems.',
-    checklist: [
-      'Real-time KPI tracking and dashboard reporting',
-      'Rapid iteration on conversion channels',
-      'Unit economic profitability from Month 1',
-    ],
-    iconName: 'PieChart',
-    iconColorClass: 'iconPurpleLarge',
-    visualLabel: '100% Quantifiable Growth Targets',
-  },
-  {
-    id: 'risk',
-    label: 'Risk Mitigation',
-    title: 'Comprehensive Capital & Operational Hedging',
-    desc: 'We stress-test expansion scenarios against macroeconomic shifts, regulatory roadblocks, and competitive counter-moves to protect enterprise equity.',
-    checklist: [
-      'Scenario modeling for 3 growth horizons',
-      'Regulatory & compliance risk audit',
-      'Capital allocation downside protection',
-    ],
-    iconName: 'ShieldCheck',
-    iconColorClass: 'iconEmeraldLarge',
-    visualLabel: 'Institutional-Grade Risk Management',
-  },
-  {
-    id: 'automation',
-    label: 'Automated Systems',
-    title: 'AI-Powered Pipeline & Operational Workflows',
-    desc: 'Eliminate friction points across your sales and logistics chains. We design custom automation pipelines that increase team output without expanding headcount.',
-    checklist: [
-      'Automated lead qualification & routing',
-      'Supply chain visibility triggers',
-      'Reduced operational overhead by up to 35%',
-    ],
-    iconName: 'Zap',
-    iconColorClass: 'iconAmberLarge',
-    visualLabel: 'Seamless System Integration',
-  },
-  {
-    id: 'csuite',
-    label: 'C-Suite Alignment',
-    title: 'Executive Alignment & Governance',
-    desc: 'We work hand-in-hand with Founders, Boards, and C-Suite Leaders to align internal incentive structures and operational focus around key growth objectives.',
-    checklist: [
-      'Board & Investor presentation frameworks',
-      'OKR and KPI cascade alignment',
-      'Executive coaching and leadership enablement',
-    ],
-    iconName: 'Compass',
-    iconColorClass: 'iconRoseLarge',
-    visualLabel: 'Strategic Vision to Execution',
-  },
-];
+export const methodologyTabs = json as MethodologyContent[];

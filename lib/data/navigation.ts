@@ -1,11 +1,10 @@
-export interface NavLink {
+import navigation from '../../data/navigation.json';
+
+export type NavLink = {
   label: string;
   href: string;
   sectionId?: string;
   mobileIconColor?: 'iconRose' | 'iconPurple' | 'iconEmerald' | 'iconAmber' | 'iconSky';
-}
+};
 
-export const navLinks: NavLink[] = [
-  { label: 'Overview', href: '/', mobileIconColor: 'iconRose' },
-  { label: 'Contact', href: '/contact', mobileIconColor: 'iconSky' },
-];
+export const navLinks = navigation as NavLink[];

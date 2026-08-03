@@ -1,28 +1,9 @@
+import data from '../../data/roadmap.json';
+
 export interface RoadmapStep {
   step: string;
   title: string;
   desc: string;
 }
 
-export const roadmapSteps: RoadmapStep[] = [
-  {
-    step: '01',
-    title: 'Diagnostic Audit',
-    desc: 'In-depth assessment of your sales funnels, unit economics, and operational bottlenecks.',
-  },
-  {
-    step: '02',
-    title: 'Strategy Blueprint',
-    desc: 'Custom expansion playbook with clear milestones, KPI assignments, and financial targets.',
-  },
-  {
-    step: '03',
-    title: 'Execution & Automation',
-    desc: 'Deploying automated sales workflows, team enablement, and CRM channel optimization.',
-  },
-  {
-    step: '04',
-    title: 'Scaling & Continuous ROI',
-    desc: 'Continuous performance tracking, expanding into secondary markets, and maximizing enterprise value.',
-  },
-];
+export const roadmapSteps = data as RoadmapStep[];
