@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { Activity, Sparkles } from 'lucide-react';
 import { chartDataMap, chartQuarters } from '@/lib/data/chartData';
 import { ChartQuarter } from '@/types';
+import { heroDashboardData } from '@/lib/data/heroDashboard';
 
 export function HeroDashboard() {
   const [chartQuarter, setChartQuarter] = useState<ChartQuarter>('Q5');
@@ -18,12 +19,12 @@ export function HeroDashboard() {
       transition={{ duration: 0.8, delay: 0.15 }}
     >
       <motion.div
-        className="absolute -top-4 right-4 z-20 inline-flex items-center gap-1.5 bg-[#111827] border border-[#f43f5e]/40 text-[#fb7185] px-3.5 py-1.5 rounded-full text-[0.72rem] font-bold shadow-[0_4px_15px_rgba(0,0,0,0.5)] backdrop-blur-md"
+        className="absolute -top-4 right-4 z-20 inline-flex items-center gap-1.5 bg-[#111827] border border-[#f43f5e]/40 text-[#fb7185] px-3.5 py-1.5 rounded-full text-[0.72rem] font-bold shadow-[0_6px_18px_rgba(0,0,0,0.6)]"
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
       >
         <Sparkles size={14} className="text-[#fb7185]" />
-        <span>AI Revenue Predictor Active</span>
+        <span>{heroDashboardData.aiLabel}</span>
       </motion.div>
 
       <div className="bg-[#0b0f19] border border-white/12 rounded-2xl overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(244,63,94,0.12)]">
@@ -35,44 +36,35 @@ export function HeroDashboard() {
           </div>
           <div className="flex items-center gap-2 text-xs font-semibold text-gray-300 truncate">
             <Activity size={14} className="text-[#fb7185]" />
-            <span className="truncate">Enterprise Growth Analytics &mdash; Business Developer</span>
+            <span className="truncate">{heroDashboardData.headerTitle}</span>
           </div>
         </div>
 
         <div className="p-4 sm:p-5 flex flex-col gap-4">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <motion.div
-              className={`p-3 rounded-xl border transition-all cursor-pointer ${
-                chartQuarter === 'Q5'
-                  ? 'bg-[#f43f5e]/15 border-[#f43f5e]/40 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
-                  : 'bg-[#111827]/60 border-white/10 hover:bg-white/5'
-              }`}
-              onClick={() => setChartQuarter('Q5')}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <div className="text-[0.72rem] text-gray-400 font-medium">Annual Revenue Velocity</div>
-              <div className="text-lg font-extrabold text-white mt-0.5">{activePoint.val}</div>
-              <div className="text-[0.72rem] text-[#34d399] font-bold mt-0.5">{activePoint.trend}</div>
-            </motion.div>
-
-            <motion.div className="p-3 rounded-xl border bg-[#111827]/60 border-white/10 hover:bg-white/5 cursor-pointer transition-all" whileHover={{ scale: 1.02 }}>
-              <div className="text-[0.72rem] text-gray-400 font-medium">EBITDA Margin Boost</div>
-              <div className="text-lg font-extrabold text-white mt-0.5">34.2%</div>
-              <div className="text-[0.72rem] text-[#34d399] font-bold mt-0.5">+6.8% YoY</div>
-            </motion.div>
-
-            <motion.div className="p-3 rounded-xl border bg-[#111827]/60 border-white/10 hover:bg-white/5 cursor-pointer transition-all" whileHover={{ scale: 1.02 }}>
-              <div className="text-[0.72rem] text-gray-400 font-medium">Pipeline Efficiency</div>
-              <div className="text-lg font-extrabold text-white mt-0.5">94.1%</div>
-              <div className="text-[0.72rem] text-gray-400 font-bold mt-0.5">Optimal</div>
-            </motion.div>
+            {heroDashboardData.cards.map((card) => (
+              <motion.div
+                key={card.id}
+                className={`p-3 rounded-xl border transition-all cursor-pointer ${
+                  card.usesChart && chartQuarter === 'Q5'
+                    ? 'bg-[#f43f5e]/15 border-[#f43f5e]/40 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
+                    : 'bg-[#111827]/60 border-white/10 hover:bg-white/5'
+                }`}
+                onClick={() => card.usesChart && setChartQuarter('Q5')}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <div className="text-[0.72rem] text-gray-400 font-medium">{card.label}</div>
+                <div className="text-lg font-extrabold text-white mt-0.5">{card.usesChart ? activePoint.val : card.value}</div>
+                <div className="text-[0.72rem] text-[#34d399] font-bold mt-0.5">{card.usesChart ? activePoint.trend : card.trend}</div>
+              </motion.div>
+            ))}
           </div>
 
           <div className="bg-[#111827]/60 border border-white/10 rounded-xl p-4 flex flex-col gap-3">
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-[0.8rem] font-bold text-gray-200">12-Month Projected vs Actual Growth Line</span>
+                <span className="text-[0.8rem] font-bold text-gray-200">{heroDashboardData.chart.label}</span>
                 <span className="bg-[#f43f5e]/20 border border-[#f43f5e]/40 text-[#fb7185] px-2 py-0.5 rounded-full text-[0.68rem] font-extrabold">{activePoint.label}</span>
               </div>
               <div className="flex items-center gap-1 bg-[#030712] p-1 rounded-lg border border-white/10 self-start sm:self-auto">
@@ -146,11 +138,9 @@ export function HeroDashboard() {
             </div>
 
             <div className="flex justify-between items-center text-[0.72rem] text-gray-400 font-semibold pt-1 border-t border-white/5">
-              <span>Q1 Baseline</span>
-              <span>Q2 Ramp</span>
-              <span>Q3 Multiplier</span>
-              <span>Q4 Peak</span>
-              <span className="text-[#fb7185] font-bold">Q5 Horizon</span>
+              {heroDashboardData.chart.footerLabels.map((lbl, idx) => (
+                <span key={idx} className={idx === 4 ? 'text-[#fb7185] font-bold' : ''}>{lbl}</span>
+              ))}
             </div>
           </div>
 
@@ -159,11 +149,10 @@ export function HeroDashboard() {
               <span className="w-2 h-2 rounded-full bg-[#34d399] shadow-[0_0_8px_#34d399] animate-pulse" />
               <span className="text-gray-300 font-semibold">Real-time C-Suite Integration Active</span>
             </div>
-            <span className="text-[#fb7185] font-extrabold">Target ROI: 2.45x</span>
+            <span className="text-[#fb7185] font-extrabold">{heroDashboardData.chart.target}</span>
           </div>
         </div>
       </div>
     </motion.div>
   );
 }
-
