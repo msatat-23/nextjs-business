@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion } from 'motion/react';
 import { Activity, Sparkles } from 'lucide-react';
 import { chartDataMap, chartQuarters } from '@/lib/data/chartData';
@@ -8,8 +8,21 @@ import { ChartQuarter } from '@/types';
 import { heroDashboardData } from '@/lib/data/heroDashboard';
 
 export function HeroDashboard() {
-  const [chartQuarter, setChartQuarter] = useState<ChartQuarter>('Q5');
-  const activePoint = chartDataMap[chartQuarter];
+  // safe default quarter: take last defined quarter if available, otherwise fallback to 'Q5'
+  const defaultQuarter = (chartQuarters && chartQuarters.length > 0
+    ? (chartQuarters[chartQuarters.length - 1] as ChartQuarter)
+    : ('Q5' as ChartQuarter));
+
+  const [chartQuarter, setChartQuarter] = useState<ChartQuarter>(defaultQuarter);
+
+  // compute active point with a safe fallback to first available ChartPoint
+  const activePoint = useMemo(() => {
+    const maybe = chartDataMap[chartQuarter];
+    if (maybe) return maybe;
+    // fallback: first value in chartDataMap
+    const first = Object.values(chartDataMap)[0];
+    return first;
+  }, [chartQuarter]);
 
   return (
     <motion.div
@@ -46,11 +59,11 @@ export function HeroDashboard() {
               <motion.div
                 key={card.id}
                 className={`p-3 rounded-xl border transition-all cursor-pointer ${
-                  card.usesChart && chartQuarter === 'Q5'
+                  card.usesChart && chartQuarter === defaultQuarter
                     ? 'bg-[#f43f5e]/15 border-[#f43f5e]/40 shadow-[0_0_15px_rgba(244,63,94,0.2)]'
                     : 'bg-[#111827]/60 border-white/10 hover:bg-white/5'
                 }`}
-                onClick={() => card.usesChart && setChartQuarter('Q5')}
+                onClick={() => card.usesChart && setChartQuarter(defaultQuarter)}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -65,7 +78,9 @@ export function HeroDashboard() {
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
               <div className="flex items-center gap-2 flex-wrap">
                 <span className="text-[0.8rem] font-bold text-gray-200">{heroDashboardData.chart.label}</span>
-                <span className="bg-[#f43f5e]/20 border border-[#f43f5e]/40 text-[#fb7185] px-2 py-0.5 rounded-full text-[0.68rem] font-extrabold">{activePoint.label}</span>
+                <span className="bg-[#f43f5e]/20 border border-[#f43f5e]/40 text-[#fb7185] px-2 py-0.5 rounded-full text-[0.68rem] font-extrabold">
+                  {activePoint.label ?? ''}
+                </span>
               </div>
               <div className="flex items-center gap-1 bg-[#030712] p-1 rounded-lg border border-white/10 self-start sm:self-auto">
                 {chartQuarters.map((q) => (
