@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import './globals.css';
+import QueryClientProviderWrapper from '@/providers/query-client-provider';
 
 export const metadata: Metadata = {
   title: 'Business Developer | Enterprise Growth Platform',
@@ -14,14 +15,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
+
   return (
     <html lang="en">
       <body>
-        <div className="min-h-screen flex flex-col bg-[#030712] text-[#f9fafb]">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+        <QueryClientProviderWrapper>
+          <div className="min-h-screen flex flex-col bg-[#030712] text-[#f9fafb]">
+            <Header />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </div>
+        </QueryClientProviderWrapper>
       </body>
     </html>
   );

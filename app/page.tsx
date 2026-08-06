@@ -1,3 +1,4 @@
+"use client"
 import { PendingScrollHandler } from '@/components/home/PendingScrollHandler';
 import { HeroSection } from '@/components/home/HeroSection';
 import { StatsSection } from '@/components/home/StatsSection';
@@ -9,8 +10,14 @@ import { ExecutiveCapabilitiesSlider } from '@/components/home/ExecutiveCapabili
 import { RoiCalculatorSection } from '@/components/home/RoiCalculatorSection';
 import { RoadmapSection } from '@/components/home/RoadmapSection';
 import { CtaBannerSection } from '@/components/home/CtaBannerSection';
+import { usePublicPageQuery } from '@/hooks/use-get-page';
 
 export default function HomePage() {
+
+  const { data } = usePublicPageQuery("home");
+
+  console.log(data)
+
   return (
     <div className="w-full overflow-x-hidden bg-[#030712] text-[#f9fafb]">
       <PendingScrollHandler />
