@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { ContactPageClient } from './ContactPageClient';
+import { Suspense } from 'react';
+import { ContactPageSkeleton } from '@/components/skeletons/contactPageSkeleton';
 
 export const metadata: Metadata = {
   title: 'Contact | Business Developer',
@@ -8,5 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactPageClient />;
+  return <Suspense fallback={<ContactPageSkeleton />}>
+    <ContactPageClient />
+  </Suspense>;
 }

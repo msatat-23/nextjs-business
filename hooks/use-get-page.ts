@@ -1,18 +1,16 @@
 'use client';
 
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import {
     fetchPageData,
-    type PageApiRecord,
 } from '@/lib/api';
 
 
 
-export function usePageQuery(slug: string) {
-    return useQuery({
+export function usePageQuery<T>(slug: string) {
+    return useSuspenseQuery({
         queryKey: ['page', slug],
-        queryFn: () => fetchPageData(slug),
-        enabled: Boolean(slug),
+        queryFn: () => fetchPageData<T>(slug),
     });
 }
 

@@ -3,20 +3,15 @@
 import { ContactHero } from '@/components/contact/ContactHero';
 import { ContactForm } from '@/components/contact/ContactForm';
 import { usePageQuery } from '@/hooks/use-get-page';
-import { contactPageContent } from '@/lib/data/contactPage';
-import type { ContactPageContent } from '@/types/contact-page';
+import type { ContactPageContentType } from '@/types/contact-page';
 
 export function ContactPageClient() {
-  const { data, isLoading, isError } = usePageQuery('contact');
-  const content: ContactPageContent = (data?.content as ContactPageContent | undefined) ?? contactPageContent;
 
-  if (isLoading) {
-    return (
-      <div className="w-full min-h-[50vh] flex items-center justify-center bg-[#030712] text-gray-400">
-        Loading…
-      </div>
-    );
-  }
+
+  const { data, isError } = usePageQuery<ContactPageContentType>('contact');
+
+  const content = data?.content;
+
 
   if (isError && !data?.content) {
     return (

@@ -9,6 +9,8 @@ import { requestSectionScroll, scrollToSection } from '@/lib/scroll';
 import { MobileMenu } from './MobileMenu';
 import { ContactModal } from '@/components/contact/ContactModal';
 
+
+
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -32,6 +34,9 @@ export function Header() {
 
     router.push(link.href);
   };
+
+
+
 
   return (
     <>
@@ -57,11 +62,10 @@ export function Header() {
                 return (
                   <button
                     key={link.label}
-                    className={`font-sans text-[0.86rem] font-semibold transition-all duration-200 px-3.5 py-1.5 min-h-[38px] rounded-full cursor-pointer inline-flex items-center justify-center ${
-                      isActive
+                    className={`font-sans text-[0.86rem] font-semibold transition-all duration-200 px-3.5 py-1.5 min-h-[38px] rounded-full cursor-pointer inline-flex items-center justify-center ${isActive
                         ? 'bg-[#f43f5e]/20 text-[#fb7185] font-bold border border-[#f43f5e]/30'
                         : 'text-gray-400 hover:text-white hover:bg-white/10 border border-transparent'
-                    }`}
+                      }`}
                     onClick={() => handleNavigate(link)}
                   >
                     {link.label}
@@ -69,11 +73,10 @@ export function Header() {
                 );
               })}
             <button
-              className={`font-sans text-[0.86rem] font-semibold transition-all duration-200 px-3.5 py-1.5 min-h-[38px] rounded-full cursor-pointer inline-flex items-center justify-center ${
-                pathname === '/contact'
+              className={`font-sans text-[0.86rem] font-semibold transition-all duration-200 px-3.5 py-1.5 min-h-[38px] rounded-full cursor-pointer inline-flex items-center justify-center ${pathname === '/contact'
                   ? 'bg-[#f43f5e]/20 text-[#fb7185] font-bold border border-[#f43f5e]/30'
                   : 'text-gray-400 hover:text-white hover:bg-white/10 border border-transparent'
-              }`}
+                }`}
               onClick={() => handleNavigate({ label: 'Contact', href: '/contact' })}
             >
               Contact

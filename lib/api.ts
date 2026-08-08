@@ -1,10 +1,11 @@
 
 
 import { ContactFormData } from '@/types';
-import type { HomePageContent } from '@/types/home-page';
+import { ContactPageContentType } from '@/types/contact-page';
+import type { HomePageContentType } from '@/types/home-page';
 
 
-export type PageContent = HomePageContent;
+export type PageContent = HomePageContentType | ContactPageContentType;
 
 const DEFAULT_API_BASE_URL = 'http://localhost:3001/api/v1';
 
@@ -23,10 +24,10 @@ export type ApiError = {
     statusCode?: number;
 };
 
-export interface PageApiRecord {
+export interface PageApiRecord<T> {
     id: number;
     slug: string;
-    content: PageContent;
+    content: T;
     updatedByEmail: string | null;
     createdAt: string;
     updatedAt: string;
@@ -67,8 +68,8 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
 };
 
 
-export async function fetchPageData(page: string): Promise<PageApiRecord> {
-    return apiRequest<PageApiRecord>(`/pages/${page}`);
+export async function fetchPageData<T>(page: string): Promise<PageApiRecord<T>> {
+    return apiRequest<PageApiRecord<T>>(`/pages/${page}`);
 };
 
 export async function submitContact(

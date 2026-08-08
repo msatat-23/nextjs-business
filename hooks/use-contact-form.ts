@@ -36,6 +36,8 @@ export function useContactForm() {
         },
     } = form;
 
+
+
     const onSubmit: SubmitHandler<ContactFormData> = async (data) => {
         setSubmitError(null);
 
@@ -44,6 +46,19 @@ export function useContactForm() {
 
             setSubmitted(true);
             reset(INITIAL_FORM_DATA);
+
+
+            fetch('/api/contact-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fullName: data.fullName,
+                }),
+            }).catch((error) => {
+                console.error('Confirmation email failed:', error);
+            });
         } catch (error) {
             console.error('Contact submission failed:', error);
 
@@ -55,6 +70,9 @@ export function useContactForm() {
             setSubmitError(message);
         }
     };
+
+
+
 
     const submitAnother = () => {
         setSubmitted(false);

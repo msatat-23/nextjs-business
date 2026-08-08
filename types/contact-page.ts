@@ -3,7 +3,7 @@ export interface ContactFormFieldConfig {
   placeholder: string;
 }
 
-export interface ContactPageContent {
+export interface ContactPageContentType {
   hero: {
     badge: string;
     title: string;

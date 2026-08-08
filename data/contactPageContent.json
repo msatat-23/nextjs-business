@@ -16,10 +16,22 @@
     "submitLabel": "Request Strategic Advisory Session",
     "loadingLabel": "Processing Brief...",
     "fields": {
-      "fullname": { "label": "Full Name", "placeholder": "e.g. Jonathan Vance" },
-      "phone": { "label": "Direct Phone", "placeholder": "+1 (555) 019-2834" },
-      "jobTitle": { "label": "Job Title", "placeholder": "e.g. Chief Revenue Officer" },
-      "email": { "label": "Corporate Email", "placeholder": "j.vance@enterprise.com" }
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "e.g. Jonathan Vance"
+      },
+      "phone": {
+        "label": "Direct Phone",
+        "placeholder": "+1 (555) 019-2834"
+      },
+      "jobTitle": {
+        "label": "Job Title",
+        "placeholder": "e.g. Chief Revenue Officer"
+      },
+      "email": {
+        "label": "Corporate Email",
+        "placeholder": "j.vance@enterprise.com"
+      }
     }
   }
 }

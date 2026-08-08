@@ -59,7 +59,7 @@ export interface CtaBannerContent {
   button: string;
 }
 
-export interface HomePageContent {
+export interface HomePageContentType {
   heroSection: HeroSectionData;
   heroDashboard: HeroDashboardData;
   stats: StatItem[];
