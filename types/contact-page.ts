@@ -21,7 +21,7 @@ export interface ContactPageContent {
     submitLabel: string;
     loadingLabel: string;
     fields: {
-      fullname: ContactFormFieldConfig;
+      fullName: ContactFormFieldConfig;
       phone: ContactFormFieldConfig;
       jobTitle: ContactFormFieldConfig;
       email: ContactFormFieldConfig;

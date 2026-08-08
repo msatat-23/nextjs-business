@@ -1,163 +1,464 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'motion/react';
-import { User, Phone, Briefcase, Mail, Send, CheckCircle2 } from 'lucide-react';
-import { ContactFormData } from '@/types';
-import type { ContactPageContent } from '@/types/contact-page';
+import {
+  User,
+  Phone,
+  Briefcase,
+  Mail,
+  Send,
+  CheckCircle2,
+} from 'lucide-react';
+import { Controller } from 'react-hook-form';
 
-const INITIAL_FORM_DATA: ContactFormData = {
-  fullname: '',
-  phone: '',
-  jobTitle: '',
-  email: '',
-};
+import type { ContactPageContent } from '@/types/contact-page';
+import { PhoneInput } from './PhoneInput';
+import { useContactForm } from '../../hooks/use-contact-form';
 
 interface ContactFormProps {
   form: ContactPageContent['form'];
 }
 
-export function ContactForm({ form }: ContactFormProps) {
-  const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_DATA);
-  const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 800);
-  };
+export function ContactForm({
+  form,
+}: ContactFormProps) {
+  const {
+    register,
+    control,
+    errors,
+    isSubmitting,
+    submitted,
+    submitError,
+    handleSubmit,
+    onSubmit,
+    submitAnother,
+  } = useContactForm();
 
   const fields = form.fields;
 
   return (
-    <section className="max-w-3xl mx-auto -mt-[60px] relative z-20 px-6">
+    <section className="relative z-20 mx-auto -mt-[60px] max-w-3xl px-6">
       <motion.div
-        className="bg-[#0b0f19] rounded-2xl p-6 sm:p-12 shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7),0_0_30px_rgba(244,63,94,0.15)] border border-white/10 backdrop-blur-md"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4 }}
+        className="
+          rounded-2xl
+          border
+          border-white/10
+          bg-[#0b0f19]
+          p-6
+          shadow-[0_25px_50px_-12px_rgba(0,0,0,0.7),0_0_30px_rgba(244,63,94,0.15)]
+          backdrop-blur-md
+          sm:p-12
+        "
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.4,
+        }}
       >
-        <div className="text-center mb-10">
-          <h2 className="font-sans text-2xl sm:text-3xl font-black text-white mb-2.5 tracking-tight">{form.title}</h2>
-          <p className="font-sans text-[0.98rem] text-gray-400 leading-relaxed">
+        <div className="mb-10 text-center">
+          <h2
+            className="
+              mb-2.5
+              font-sans
+              text-2xl
+              font-black
+              tracking-tight
+              text-white
+              sm:text-3xl
+            "
+          >
+            {form.title}
+          </h2>
+
+          <p
+            className="
+              font-sans
+              text-[0.98rem]
+              leading-relaxed
+              text-gray-400
+            "
+          >
             {form.description}
           </p>
         </div>
 
         {submitted ? (
           <motion.div
-            className="bg-[#10b981]/10 border border-[#10b981]/30 rounded-2xl p-8 flex items-start gap-5"
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
+            className="
+              flex
+              items-start
+              gap-5
+              rounded-2xl
+              border
+              border-[#10b981]/30
+              bg-[#10b981]/10
+              p-8
+            "
+            initial={{
+              scale: 0.95,
+              opacity: 0,
+            }}
+            animate={{
+              scale: 1,
+              opacity: 1,
+            }}
           >
-            <CheckCircle2 size={32} className="text-[#34d399] shrink-0 mt-1" />
+            <CheckCircle2
+              size={32}
+              className="
+                mt-1
+                shrink-0
+                text-[#34d399]
+              "
+            />
+
             <div className="flex flex-col gap-2">
-              <h3 className="text-xl font-extrabold text-white m-0">{form.successTitle}</h3>
-              <p className="text-[0.95rem] text-gray-300 leading-relaxed m-0">
+              <h3 className="m-0 text-xl font-extrabold text-white">
+                {form.successTitle}
+              </h3>
+
+              <p className="m-0 text-[0.95rem] leading-relaxed text-gray-300">
                 {form.successMessage}
               </p>
+
               <button
-                onClick={() => {
-                  setSubmitted(false);
-                  setFormData(INITIAL_FORM_DATA);
-                }}
-                className="mt-4 bg-transparent border-none text-[#fb7185] text-[0.88rem] font-bold underline cursor-pointer hover:text-[#f43f5e] p-0 self-start"
+                type="button"
+                onClick={submitAnother}
+                className="
+                  mt-4
+                  self-start
+                  cursor-pointer
+                  border-0
+                  bg-transparent
+                  p-0
+                  text-[0.88rem]
+                  font-bold
+                  text-[#fb7185]
+                  underline
+                  transition-colors
+                  hover:text-[#f43f5e]
+                "
               >
                 {form.submitAnother}
               </button>
             </div>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="
+              grid
+              grid-cols-1
+              gap-6
+              sm:grid-cols-2
+            "
+            noValidate
+          >
+            {/* Full Name */}
             <div className="flex flex-col gap-2">
-              <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="fullname">
-                <User size={16} className="text-[#fb7185]" />
-                <span>{fields.fullname.label}</span>
-                <span className="text-[#f43f5e] font-bold">*</span>
+              <label
+                htmlFor="fullName"
+                className="
+                  flex
+                  items-center
+                  gap-1.5
+                  font-sans
+                  text-[0.88rem]
+                  font-bold
+                  text-gray-200
+                "
+              >
+                <User
+                  size={16}
+                  className="text-[#fb7185]"
+                />
+
+                <span>
+                  {fields.fullName.label}
+                </span>
+
+                <span className="font-bold text-[#f43f5e]">
+                  *
+                </span>
               </label>
+
               <input
-                id="fullname"
+                id="fullName"
                 type="text"
-                name="fullname"
-                required
-                value={formData.fullname}
-                onChange={handleChange}
-                placeholder={fields.fullname.placeholder}
-                className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
+                placeholder={fields.fullName.placeholder}
+                {...register('fullName', {
+                  required: 'Full name is required',
+                })}
+                className="
+                  h-[52px]
+                  rounded-xl
+                  border
+                  border-white/[0.10]
+                  bg-[#0f172a]/80
+                  px-4
+                  font-sans
+                  text-[0.95rem]
+                  text-white
+                  outline-none
+                  transition-all
+                  duration-200
+                  placeholder:text-gray-600
+                  focus:border-[#f43f5e]
+                  focus:bg-[#111827]
+                  focus:ring-4
+                  focus:ring-[#f43f5e]/10
+                "
               />
+
+              {errors.fullName && (
+                <p className="text-xs text-red-400">
+                  {errors.fullName.message}
+                </p>
+              )}
             </div>
 
+            {/* Phone */}
             <div className="flex flex-col gap-2">
-              <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="phone">
-                <Phone size={16} className="text-[#fb7185]" />
-                <span>{fields.phone.label}</span>
-                <span className="text-[#f43f5e] font-bold">*</span>
+              <label
+                htmlFor="phone"
+                className="
+                  flex
+                  items-center
+                  gap-1.5
+                  font-sans
+                  text-[0.88rem]
+                  font-bold
+                  text-gray-200
+                "
+              >
+                <Phone
+                  size={16}
+                  className="text-[#fb7185]"
+                />
+
+                <span>
+                  {fields.phone.label}
+                </span>
+
+                <span className="font-bold text-[#f43f5e]">
+                  *
+                </span>
               </label>
-              <input
-                id="phone"
-                type="tel"
+
+              <Controller
                 name="phone"
-                required
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder={fields.phone.placeholder}
-                className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
+                control={control}
+                rules={{
+                  required: 'Phone number is required',
+                }}
+                render={({ field }) => (
+                  <PhoneInput
+                    id="phone"
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder={fields.phone.placeholder}
+                    required
+                    aria-label={fields.phone.label}
+                  />
+                )}
               />
+
+              {errors.phone && (
+                <p className="text-xs text-red-400">
+                  {errors.phone.message}
+                </p>
+              )}
             </div>
 
+            {/* Job Title */}
             <div className="flex flex-col gap-2">
-              <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="jobTitle">
-                <Briefcase size={16} className="text-[#fb7185]" />
-                <span>{fields.jobTitle.label}</span>
-                <span className="text-[#f43f5e] font-bold">*</span>
+              <label
+                htmlFor="jobTitle"
+                className="
+                  flex
+                  items-center
+                  gap-1.5
+                  font-sans
+                  text-[0.88rem]
+                  font-bold
+                  text-gray-200
+                "
+              >
+                <Briefcase
+                  size={16}
+                  className="text-[#fb7185]"
+                />
+
+                <span>
+                  {fields.jobTitle.label}
+                </span>
+
+                <span className="font-bold text-[#f43f5e]">
+                  *
+                </span>
               </label>
+
               <input
                 id="jobTitle"
                 type="text"
-                name="jobTitle"
-                required
-                value={formData.jobTitle}
-                onChange={handleChange}
                 placeholder={fields.jobTitle.placeholder}
-                className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
+                {...register('jobTitle', {
+                  required: 'Job title is required',
+                })}
+                className="
+                  h-[52px]
+                  rounded-xl
+                  border
+                  border-white/[0.10]
+                  bg-[#0f172a]/80
+                  px-4
+                  font-sans
+                  text-[0.95rem]
+                  text-white
+                  outline-none
+                  transition-all
+                  duration-200
+                  placeholder:text-gray-600
+                  focus:border-[#f43f5e]
+                  focus:bg-[#111827]
+                  focus:ring-4
+                  focus:ring-[#f43f5e]/10
+                "
               />
+
+              {errors.jobTitle && (
+                <p className="text-xs text-red-400">
+                  {errors.jobTitle.message}
+                </p>
+              )}
             </div>
 
+            {/* Email */}
             <div className="flex flex-col gap-2">
-              <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="email">
-                <Mail size={16} className="text-[#fb7185]" />
-                <span>{fields.email.label}</span>
-                <span className="text-[#f43f5e] font-bold">*</span>
+              <label
+                htmlFor="email"
+                className="
+                  flex
+                  items-center
+                  gap-1.5
+                  font-sans
+                  text-[0.88rem]
+                  font-bold
+                  text-gray-200
+                "
+              >
+                <Mail
+                  size={16}
+                  className="text-[#fb7185]"
+                />
+
+                <span>
+                  {fields.email.label}
+                </span>
+
+                <span className="font-bold text-[#f43f5e]">
+                  *
+                </span>
               </label>
+
               <input
                 id="email"
                 type="email"
-                name="email"
-                required
-                value={formData.email}
-                onChange={handleChange}
                 placeholder={fields.email.placeholder}
-                className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
+                {...register('email', {
+                  required: 'Email is required',
+                  pattern: {
+                    value:
+                      /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: 'Enter a valid email address',
+                  },
+                })}
+                className="
+                  h-[52px]
+                  rounded-xl
+                  border
+                  border-white/[0.10]
+                  bg-[#0f172a]/80
+                  px-4
+                  font-sans
+                  text-[0.95rem]
+                  text-white
+                  outline-none
+                  transition-all
+                  duration-200
+                  placeholder:text-gray-600
+                  focus:border-[#f43f5e]
+                  focus:bg-[#111827]
+                  focus:ring-4
+                  focus:ring-[#f43f5e]/10
+                "
               />
+
+              {errors.email && (
+                <p className="text-xs text-red-400">
+                  {errors.email.message}
+                </p>
+              )}
             </div>
 
+            {submitError && (
+              <div
+                role="alert"
+                className="col-span-1 rounded-xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-300 sm:col-span-2"
+              >
+                {submitError}
+              </div>
+            )}
+
+            {/* Submit */}
             <div className="col-span-1 sm:col-span-2">
-              <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white border border-white/20 px-8 py-4 rounded-xl font-sans text-[1.05rem] font-extrabold cursor-pointer shadow-[0_4px_20px_rgba(244,63,94,0.4)] hover:-translate-y-0.5 hover:shadow-[0_6px_25px_rgba(244,63,94,0.6)] transition-all duration-200 flex items-center justify-center gap-2.5 mt-4 disabled:opacity-50">
-                {loading ? (
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="
+                  mt-4
+                  flex
+                  w-full
+                  items-center
+                  justify-center
+                  gap-2.5
+                  rounded-xl
+                  border
+                  border-white/20
+                  bg-gradient-to-r
+                  from-[#f43f5e]
+                  via-[#e11d48]
+                  to-[#9333ea]
+                  px-8
+                  py-4
+                  font-sans
+                  text-[1.05rem]
+                  font-extrabold
+                  text-white
+                  shadow-[0_4px_20px_rgba(244,63,94,0.4)]
+                  transition-all
+                  duration-200
+                  hover:-translate-y-0.5
+                  hover:shadow-[0_6px_25px_rgba(244,63,94,0.6)]
+                  disabled:cursor-not-allowed
+                  disabled:opacity-50
+                "
+              >
+                {isSubmitting ? (
                   <span>{form.loadingLabel}</span>
                 ) : (
                   <>
                     <Send size={18} />
-                    <span>{form.submitLabel}</span>
+
+                    <span>
+                      {form.submitLabel}
+                    </span>
                   </>
                 )}
               </button>

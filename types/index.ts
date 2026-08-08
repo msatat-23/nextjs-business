@@ -1,11 +1,8 @@
 export interface ContactFormData {
-  fullname: string;
+  fullName: string;
   phone: string;
   jobTitle: string;
   email: string;
-  companyName?: string;
-  serviceInterest?: string;
-  message?: string;
 }
 
 export interface ServiceCard {

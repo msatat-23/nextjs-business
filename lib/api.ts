@@ -1,5 +1,6 @@
 
 
+import { ContactFormData } from '@/types';
 import type { HomePageContent } from '@/types/home-page';
 
 
@@ -69,3 +70,12 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
 export async function fetchPageData(page: string): Promise<PageApiRecord> {
     return apiRequest<PageApiRecord>(`/pages/${page}`);
 };
+
+export async function submitContact(
+    data: ContactFormData,
+) {
+    return apiRequest('/contact', {
+        method: 'POST',
+        body: JSON.stringify(data),
+    });
+}
