@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import { ContactHero } from '@/components/contact/ContactHero';
-import { ContactForm } from '@/components/contact/ContactForm';
+import { ContactPageClient } from './ContactPageClient';
 
 export const metadata: Metadata = {
   title: 'Contact | Business Developer',
@@ -9,11 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return (
-    <div className="w-full min-h-[90vh] overflow-x-hidden bg-[#030712] text-[#f9fafb] pb-24">
-      <ContactHero />
-      <ContactForm />
-    </div>
-  );
+  return <ContactPageClient />;
 }
-

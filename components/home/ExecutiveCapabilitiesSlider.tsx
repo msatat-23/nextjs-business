@@ -4,34 +4,43 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Sparkles, CheckCircle2, ArrowUpRight, Shield, Zap } from 'lucide-react';
-import { capabilitiesData } from '@/lib/data/capabilities';
+import type { CapabilityItem } from '@/lib/data/capabilities';
 import { ContactModal } from '@/components/contact/ContactModal';
 
-export function ExecutiveCapabilitiesSlider() {
+interface ExecutiveCapabilitiesSliderProps {
+  items: CapabilityItem[];
+}
+
+export function ExecutiveCapabilitiesSlider({ items }: ExecutiveCapabilitiesSliderProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || items.length === 0) return;
     const timer = setInterval(() => {
-      handleNext();
+      setDirection(1);
+      setCurrentIndex((prev) => (prev + 1) % items.length);
     }, 6000);
     return () => clearInterval(timer);
-  }, [currentIndex, isAutoPlaying]);
+  }, [isAutoPlaying, items.length]);
 
   const handleNext = () => {
     setDirection(1);
-    setCurrentIndex((prev) => (prev + 1) % capabilitiesData.length);
+    setCurrentIndex((prev) => (prev + 1) % items.length);
   };
 
   const handlePrev = () => {
     setDirection(-1);
-    setCurrentIndex((prev) => (prev - 1 + capabilitiesData.length) % capabilitiesData.length);
+    setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
   };
 
-  const current = capabilitiesData[currentIndex];
+  const current = items[currentIndex];
+
+  if (!current) {
+    return null;
+  }
 
   return (
     <>
@@ -148,7 +157,7 @@ export function ExecutiveCapabilitiesSlider() {
           </div>
 
           <div className="flex items-center justify-center gap-2 mt-8 relative z-10">
-            {capabilitiesData.map((_, idx) => (
+            {items.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => {

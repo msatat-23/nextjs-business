@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { motion } from 'motion/react';
 import { User, Phone, Briefcase, Mail, Send, CheckCircle2 } from 'lucide-react';
 import { ContactFormData } from '@/types';
+import type { ContactPageContent } from '@/types/contact-page';
 
 const INITIAL_FORM_DATA: ContactFormData = {
   fullname: '',
@@ -12,7 +13,11 @@ const INITIAL_FORM_DATA: ContactFormData = {
   email: '',
 };
 
-export function ContactForm() {
+interface ContactFormProps {
+  form: ContactPageContent['form'];
+}
+
+export function ContactForm({ form }: ContactFormProps) {
   const [formData, setFormData] = useState<ContactFormData>(INITIAL_FORM_DATA);
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,6 +36,8 @@ export function ContactForm() {
     }, 800);
   };
 
+  const fields = form.fields;
+
   return (
     <section className="max-w-3xl mx-auto -mt-[60px] relative z-20 px-6">
       <motion.div
@@ -40,9 +47,9 @@ export function ContactForm() {
         transition={{ duration: 0.4 }}
       >
         <div className="text-center mb-10">
-          <h2 className="font-sans text-2xl sm:text-3xl font-black text-white mb-2.5 tracking-tight">Request Executive Advisory</h2>
+          <h2 className="font-sans text-2xl sm:text-3xl font-black text-white mb-2.5 tracking-tight">{form.title}</h2>
           <p className="font-sans text-[0.98rem] text-gray-400 leading-relaxed">
-            Complete the consultation brief below and a Senior Business Developer advisor will prepare a preliminary audit for your organization.
+            {form.description}
           </p>
         </div>
 
@@ -54,9 +61,9 @@ export function ContactForm() {
           >
             <CheckCircle2 size={32} className="text-[#34d399] shrink-0 mt-1" />
             <div className="flex flex-col gap-2">
-              <h3 className="text-xl font-extrabold text-white m-0">Advisory Request Submitted!</h3>
+              <h3 className="text-xl font-extrabold text-white m-0">{form.successTitle}</h3>
               <p className="text-[0.95rem] text-gray-300 leading-relaxed m-0">
-                Thank you for reaching out. A Senior Growth Director has been assigned to review your inquiry and will reach out within 24 business hours.
+                {form.successMessage}
               </p>
               <button
                 onClick={() => {
@@ -65,7 +72,7 @@ export function ContactForm() {
                 }}
                 className="mt-4 bg-transparent border-none text-[#fb7185] text-[0.88rem] font-bold underline cursor-pointer hover:text-[#f43f5e] p-0 self-start"
               >
-                Submit Another Consultation Request
+                {form.submitAnother}
               </button>
             </div>
           </motion.div>
@@ -74,7 +81,7 @@ export function ContactForm() {
             <div className="flex flex-col gap-2">
               <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="fullname">
                 <User size={16} className="text-[#fb7185]" />
-                <span>Full Name</span>
+                <span>{fields.fullname.label}</span>
                 <span className="text-[#f43f5e] font-bold">*</span>
               </label>
               <input
@@ -84,7 +91,7 @@ export function ContactForm() {
                 required
                 value={formData.fullname}
                 onChange={handleChange}
-                placeholder="e.g. Jonathan Vance"
+                placeholder={fields.fullname.placeholder}
                 className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
               />
             </div>
@@ -92,7 +99,7 @@ export function ContactForm() {
             <div className="flex flex-col gap-2">
               <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="phone">
                 <Phone size={16} className="text-[#fb7185]" />
-                <span>Direct Phone</span>
+                <span>{fields.phone.label}</span>
                 <span className="text-[#f43f5e] font-bold">*</span>
               </label>
               <input
@@ -102,7 +109,7 @@ export function ContactForm() {
                 required
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="+1 (555) 019-2834"
+                placeholder={fields.phone.placeholder}
                 className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
               />
             </div>
@@ -110,7 +117,7 @@ export function ContactForm() {
             <div className="flex flex-col gap-2">
               <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="jobTitle">
                 <Briefcase size={16} className="text-[#fb7185]" />
-                <span>Job Title</span>
+                <span>{fields.jobTitle.label}</span>
                 <span className="text-[#f43f5e] font-bold">*</span>
               </label>
               <input
@@ -120,7 +127,7 @@ export function ContactForm() {
                 required
                 value={formData.jobTitle}
                 onChange={handleChange}
-                placeholder="e.g. Chief Revenue Officer"
+                placeholder={fields.jobTitle.placeholder}
                 className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
               />
             </div>
@@ -128,7 +135,7 @@ export function ContactForm() {
             <div className="flex flex-col gap-2">
               <label className="font-sans text-[0.88rem] font-bold text-gray-200 flex items-center gap-1.5" htmlFor="email">
                 <Mail size={16} className="text-[#fb7185]" />
-                <span>Corporate Email</span>
+                <span>{fields.email.label}</span>
                 <span className="text-[#f43f5e] font-bold">*</span>
               </label>
               <input
@@ -138,7 +145,7 @@ export function ContactForm() {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                placeholder="j.vance@enterprise.com"
+                placeholder={fields.email.placeholder}
                 className="font-sans text-[0.95rem] px-4 py-3 rounded-xl border border-white/12 bg-[#111827]/80 text-white outline-none transition-all duration-200 focus:border-[#f43f5e] focus:bg-[#111827] focus:ring-2 focus:ring-[#f43f5e]/25 placeholder:text-gray-500"
               />
             </div>
@@ -146,11 +153,11 @@ export function ContactForm() {
             <div className="col-span-1 sm:col-span-2">
               <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white border border-white/20 px-8 py-4 rounded-xl font-sans text-[1.05rem] font-extrabold cursor-pointer shadow-[0_4px_20px_rgba(244,63,94,0.4)] hover:-translate-y-0.5 hover:shadow-[0_6px_25px_rgba(244,63,94,0.6)] transition-all duration-200 flex items-center justify-center gap-2.5 mt-4 disabled:opacity-50">
                 {loading ? (
-                  <span>Processing Brief...</span>
+                  <span>{form.loadingLabel}</span>
                 ) : (
                   <>
                     <Send size={18} />
-                    <span>Request Strategic Advisory Session</span>
+                    <span>{form.submitLabel}</span>
                   </>
                 )}
               </button>
@@ -161,4 +168,3 @@ export function ContactForm() {
     </section>
   );
 }
-

@@ -3,8 +3,12 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import { CheckCircle2, PieChart, ShieldCheck, Zap, Compass } from 'lucide-react';
-import { methodologyTabs } from '@/lib/data/methodology';
+import type { MethodologyContent } from '@/lib/data/methodology';
 import { MethodologyTab } from '@/types';
+
+interface MethodologySectionProps {
+  tabs: MethodologyContent[];
+}
 
 const iconMap: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
   PieChart,
@@ -20,9 +24,14 @@ const iconColorClasses: Record<string, string> = {
   iconRoseLarge: 'text-[#fb7185]',
 };
 
-export function MethodologySection() {
-  const [activeTab, setActiveTab] = useState<MethodologyTab>('execution');
-  const activeContent = methodologyTabs.find((tab) => tab.id === activeTab)!;
+export function MethodologySection({ tabs }: MethodologySectionProps) {
+  const [activeTab, setActiveTab] = useState<MethodologyTab>(tabs[0]?.id ?? 'execution');
+  const activeContent = tabs.find((tab) => tab.id === activeTab) ?? tabs[0];
+
+  if (!activeContent) {
+    return null;
+  }
+
   const ActiveIcon = iconMap[activeContent.iconName];
 
   return (
@@ -36,7 +45,7 @@ export function MethodologySection() {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 p-1.5 bg-[#111827]/80 rounded-2xl border border-white/10 max-w-2xl mx-auto">
-            {methodologyTabs.map((tab) => (
+            {tabs.map((tab) => (
               <button
                 key={tab.id}
                 className={`relative px-4 py-2.5 rounded-xl text-[0.86rem] font-bold cursor-pointer transition-all duration-200 z-10 ${

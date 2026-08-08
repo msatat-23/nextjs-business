@@ -1,17 +1,13 @@
 'use client';
 
 import { motion } from 'motion/react';
+import type { StatItem } from '@/types/home-page';
 
-const stats = [
-  { number: '$45M+', label: 'Generated Value Created', sub: 'Across global enterprise portfolio' },
-  { number: '250+', label: 'Enterprise Projects', sub: 'Delivered on time and on budget' },
-  { number: '98.4%', label: 'Client SLA Retention', sub: 'Audited annually by independent partners' },
-  { number: '15+', label: 'Years Industry Mastery', sub: 'Trusted by Fortune 500 leadership' },
-  { number: '3.8x', label: 'Average Revenue Multiple', sub: 'Sustained over 3-year performance window' },
-  { number: '40+', label: 'Global Markets Covered', sub: 'Across Americas, EMEA, and APAC' },
-];
+interface StatsSectionProps {
+  stats: StatItem[];
+}
 
-export function StatsSection() {
+export function StatsSection({ stats }: StatsSectionProps) {
   const tickerItems = [...stats, ...stats, ...stats];
 
   return (
@@ -46,5 +42,3 @@ export function StatsSection() {
     </section>
   );
 }
-
-

@@ -17,7 +17,6 @@ import {
   Play,
   Pause,
 } from 'lucide-react';
-import { sectorPlaybooks } from '@/lib/data/sectorPlaybooks';
 import { SectorPlaybook } from '@/types';
 
 const iconMap: Record<SectorPlaybook['iconName'], React.ComponentType<{ size?: number }>> = {
@@ -30,7 +29,11 @@ const iconMap: Record<SectorPlaybook['iconName'], React.ComponentType<{ size?: n
 
 const AUTOPLAY_INTERVAL_MS = 6000;
 
-export function SectorPlaybooksSlider() {
+interface SectorPlaybooksSliderProps {
+  items: SectorPlaybook[];
+}
+
+export function SectorPlaybooksSlider({ items }: SectorPlaybooksSliderProps) {
   const [activeSector, setActiveSector] = useState(0);
   const [direction, setDirection] = useState(1);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
@@ -39,10 +42,10 @@ export function SectorPlaybooksSlider() {
     if (!isAutoPlay) return;
     const timer = setInterval(() => {
       setDirection(1);
-      setActiveSector((prev) => (prev + 1) % sectorPlaybooks.length);
+      setActiveSector((prev) => (prev + 1) % items.length);
     }, AUTOPLAY_INTERVAL_MS);
     return () => clearInterval(timer);
-  }, [isAutoPlay]);
+  }, [isAutoPlay, items.length]);
 
   const goTo = (index: number) => {
     setDirection(index > activeSector ? 1 : -1);
@@ -51,15 +54,20 @@ export function SectorPlaybooksSlider() {
 
   const handleNext = () => {
     setDirection(1);
-    setActiveSector((prev) => (prev + 1) % sectorPlaybooks.length);
+    setActiveSector((prev) => (prev + 1) % items.length);
   };
 
   const handlePrev = () => {
     setDirection(-1);
-    setActiveSector((prev) => (prev - 1 + sectorPlaybooks.length) % sectorPlaybooks.length);
+    setActiveSector((prev) => (prev - 1 + items.length) % items.length);
   };
 
-  const item = sectorPlaybooks[activeSector];
+  const item = items[activeSector];
+
+  if (!item) {
+    return null;
+  }
+
   const Icon = iconMap[item.iconName];
 
   return (
@@ -94,7 +102,7 @@ export function SectorPlaybooksSlider() {
         <div className="flex items-center justify-between border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
             <span className="bg-[#111827] border border-white/10 text-[#fb7185] px-3 py-1 rounded-full text-[0.72rem] font-bold">
-              Sector {activeSector + 1} of {sectorPlaybooks.length}
+              Sector {activeSector + 1} of {items.length}
             </span>
             <span className="text-sm font-bold text-gray-300">{item.sector}</span>
           </div>
@@ -201,7 +209,7 @@ export function SectorPlaybooksSlider() {
           </motion.button>
 
           <div className="flex items-center gap-2">
-            {sectorPlaybooks.map((sector, i) => (
+            {items.map((sector, i) => (
               <div
                 key={sector.id}
                 className={`h-2.5 rounded-full cursor-pointer transition-all ${

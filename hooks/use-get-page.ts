@@ -8,7 +8,7 @@ import {
 
 
 
-export function usePublicPageQuery(slug: string) {
+export function usePageQuery(slug: string) {
     return useQuery({
         queryKey: ['page', slug],
         queryFn: () => fetchPageData(slug),

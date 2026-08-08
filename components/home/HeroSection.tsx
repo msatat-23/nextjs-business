@@ -5,9 +5,31 @@ import { ArrowRight, ShieldCheck, CheckCircle2, Award } from 'lucide-react';
 import Link from 'next/link';
 import { scrollToSection } from '@/lib/scroll';
 import { HeroDashboard } from './HeroDashboard';
-import { heroData } from '@/lib/data/heroSection';
+import type { HeroSectionData } from '@/lib/data/heroSection';
+import type { HeroDashboardData } from '@/lib/data/heroDashboard';
 
-export function HeroSection() {
+interface HeroSectionProps {
+  data: HeroSectionData;
+  dashboard: HeroDashboardData;
+}
+
+function renderHeroTitle(title: string, highlight?: string) {
+  if (!highlight || !title.includes(highlight)) {
+    return title;
+  }
+  const [before, after] = title.split(highlight);
+  return (
+    <>
+      {before}
+      <span className="bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#c084fc] bg-clip-text text-transparent">
+        {highlight}
+      </span>
+      {after}
+    </>
+  );
+}
+
+export function HeroSection({ data, dashboard }: HeroSectionProps) {
   return (
     <section className="py-12 sm:py-16 md:py-20 px-6 max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-8 lg:gap-16 items-center relative overflow-hidden box-border">
       <motion.div
@@ -28,50 +50,50 @@ export function HeroSection() {
             transition={{ type: 'spring', stiffness: 400 }}
           >
             <span className="w-2 h-2 rounded-full bg-[#f43f5e] shadow-[0_0_10px_#f43f5e] shrink-0" />
-            <span>{heroData.eyebrow}</span>
+            <span>{data.eyebrow}</span>
           </motion.div>
 
           <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.12] tracking-tight break-words max-w-full mb-4">
-            Architecting <span className="bg-gradient-to-r from-[#fb7185] via-[#e11d48] to-[#c084fc] bg-clip-text text-transparent">{heroData.highlight}</span> Business Strategies
+            {renderHeroTitle(data.title, data.highlight)}
           </h1>
 
           <p className="font-sans text-base sm:text-lg text-gray-400 leading-relaxed max-w-[580px] mb-6">
-            {heroData.description}
+            {data.description}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 mt-2 max-w-full">
-            <Link href={heroData.primaryCta.href || ""} className="bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white px-7 py-3.5 min-h-[46px] rounded-xl font-sans text-[0.95rem] font-bold border border-transparent inline-flex items-center gap-3">
-              <span>{heroData.primaryCta.label}</span>
+            <Link href={data.primaryCta.href || ''} className="bg-gradient-to-r from-[#f43f5e] via-[#e11d48] to-[#9333ea] text-white px-7 py-3.5 min-h-[46px] rounded-xl font-sans text-[0.95rem] font-bold border border-transparent inline-flex items-center gap-3">
+              <span>{data.primaryCta.label}</span>
               <ArrowRight size={18} />
             </Link>
             <motion.button
               className="bg-[#1f2937]/60 text-gray-100 border border-white/12 px-6 py-3.5 min-h-[46px] rounded-xl font-sans text-[0.95rem] font-semibold cursor-pointer transition-all duration-200 inline-flex items-center gap-2"
-              onClick={() => scrollToSection(heroData.secondaryCta.scrollTo ?? '')}
+              onClick={() => scrollToSection(data.secondaryCta.scrollTo ?? '')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span>{heroData.secondaryCta.label}</span>
+              <span>{data.secondaryCta.label}</span>
             </motion.button>
           </div>
 
           <div className="flex flex-wrap gap-4 sm:gap-6 mt-6 pt-5 border-t border-white/10 w-full">
             <motion.div className="flex items-center gap-2 text-[0.82rem] text-gray-400 font-medium cursor-default hover:text-white transition-colors" whileHover={{ color: '#ffffff' }}>
               <ShieldCheck size={16} className="text-[#fb7185]" />
-              <span>{heroData.badges[0].label}</span>
+              <span>{data.badges[0]?.label}</span>
             </motion.div>
             <motion.div className="flex items-center gap-2 text-[0.82rem] text-gray-400 font-medium cursor-default hover:text-white transition-colors" whileHover={{ color: '#ffffff' }}>
               <CheckCircle2 size={16} className="text-[#34d399]" />
-              <span>{heroData.badges[1].label}</span>
+              <span>{data.badges[1]?.label}</span>
             </motion.div>
             <motion.div className="flex items-center gap-2 text-[0.82rem] text-gray-400 font-medium cursor-default hover:text-white transition-colors" whileHover={{ color: '#ffffff' }}>
               <Award size={16} className="text-[#a855f7]" />
-              <span>{heroData.badges[2].label}</span>
+              <span>{data.badges[2]?.label}</span>
             </motion.div>
           </div>
         </motion.div>
       </div>
 
-      <HeroDashboard />
+      <HeroDashboard data={dashboard} />
     </section>
   );
 }

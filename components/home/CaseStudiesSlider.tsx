@@ -5,11 +5,20 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { AnimatePresence, motion } from 'motion/react';
 import { ChevronLeft, ChevronRight, TrendingUp, ArrowUpRight } from 'lucide-react';
-import { portfolioItems } from '@/lib/data/portfolio';
+import type { CaseStudiesContent } from '@/types/home-page';
 
-export function CaseStudiesSlider() {
+interface CaseStudiesSliderProps {
+  content: CaseStudiesContent;
+}
+
+export function CaseStudiesSlider({ content }: CaseStudiesSliderProps) {
+  const { section, items } = content;
   const [activeSlide, setActiveSlide] = useState(0);
   const [direction, setDirection] = useState(1);
+
+  if (items.length === 0) {
+    return null;
+  }
 
   const goTo = (index: number) => {
     setDirection(index > activeSlide ? 1 : -1);
@@ -18,25 +27,28 @@ export function CaseStudiesSlider() {
 
   const handleNext = () => {
     setDirection(1);
-    setActiveSlide((prev) => (prev + 1) % portfolioItems.length);
+    setActiveSlide((prev) => (prev + 1) % items.length);
   };
 
   const handlePrev = () => {
     setDirection(-1);
-    setActiveSlide((prev) => (prev - 1 + portfolioItems.length) % portfolioItems.length);
+    setActiveSlide((prev) => (prev - 1 + items.length) % items.length);
   };
 
-  const item = portfolioItems[activeSlide];
+  const item = items[activeSlide];
 
   return (
     <section id="case-studies" className="py-16 sm:py-24 px-6 max-w-7xl mx-auto w-full">
       <div className="text-center max-w-3xl mx-auto mb-12">
-        <span className="inline-block bg-[#111827] border border-[#f43f5e]/30 text-[#fb7185] px-3.5 py-1 rounded-full text-[0.72rem] font-extrabold tracking-wider uppercase mb-3">PROVEN TRACK RECORD</span>
+        <span className="inline-block bg-[#111827] border border-[#f43f5e]/30 text-[#fb7185] px-3.5 py-1 rounded-full text-[0.72rem] font-extrabold tracking-wider uppercase mb-3">{section.badge}</span>
         <h2 className="font-sans text-3xl sm:text-4xl font-black text-white mb-4 tracking-tight">
-          Enterprise Case Studies by <span className="bg-gradient-to-r from-[#fb7185] via-[#f43f5e] to-[#a855f7] bg-clip-text text-transparent">Business Developer</span>
+          {section.title}{' '}
+          {section.titleHighlight ? (
+            <span className="bg-gradient-to-r from-[#fb7185] via-[#f43f5e] to-[#a855f7] bg-clip-text text-transparent">{section.titleHighlight}</span>
+          ) : null}
         </h2>
         <p className="font-sans text-base text-gray-400 leading-relaxed">
-          Real transformation stories from industry leaders scaling revenue, geographic reach, and market share.
+          {section.description}
         </p>
       </div>
 
@@ -61,7 +73,7 @@ export function CaseStudiesSlider() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/20 to-transparent pointer-events-none" />
               <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full text-[0.7rem] font-bold text-[#fb7185] flex items-center gap-1.5 uppercase tracking-wider shadow-md">
                 <span className="w-2 h-2 rounded-full bg-[#f43f5e] animate-pulse" />
-                <span>Verified Enterprise Study</span>
+                <span>{section.verifiedLabel}</span>
               </div>
               <div className="absolute bottom-4 left-4 right-4 bg-[#030712]/90 backdrop-blur-md border border-white/15 text-white px-4 py-2.5 rounded-xl text-[0.82rem] font-bold flex items-center justify-between shadow-xl">
                 <div className="flex items-center gap-2">
@@ -84,7 +96,7 @@ export function CaseStudiesSlider() {
               <p className="font-sans text-[0.92rem] text-gray-300 leading-relaxed">{item.description}</p>
 
               <Link href="/contact" className="inline-flex items-center gap-2 text-[#fb7185] font-bold text-[0.88rem] mt-2 hover:text-[#f43f5e] transition-colors">
-                <span>Request Full Case Study Deck</span>
+                <span>{section.requestDeckCta}</span>
                 <ArrowUpRight size={16} />
               </Link>
             </div>
@@ -103,7 +115,7 @@ export function CaseStudiesSlider() {
           </motion.button>
 
           <div className="flex items-center gap-2">
-            {portfolioItems.map((slide, i) => (
+            {items.map((slide, i) => (
               <div
                 key={slide.id}
                 className={`h-2.5 rounded-full cursor-pointer transition-all ${
@@ -128,4 +140,3 @@ export function CaseStudiesSlider() {
     </section>
   );
 }
-

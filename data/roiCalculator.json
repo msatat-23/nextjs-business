@@ -1,0 +1,20 @@
+{
+  "section": {
+    "badge": "FINANCIAL SIMULATOR",
+    "title": "Interactive Growth & ROI Simulator",
+    "description": "Adjust your current baseline revenue to simulate projected growth multiples and efficiency gains delivered by Business Developer strategy.",
+    "baselineLabel": "Baseline Annual Revenue:",
+    "rangeLabels": ["$100,000", "$2,500,000", "$5,000,000+"],
+    "projectedLabel": "Projected 12-Mo Revenue",
+    "efficiencyLabel": "Operational Efficiency",
+    "efficiencySub": "Overhead Reduced",
+    "multipleLabel": "Target Growth Multiple",
+    "multipleSub": "Audited Portfolio Avg",
+    "cta": "Request Custom Financial Forecast"
+  },
+  "minRevenue": 100000,
+  "maxRevenue": 5000000,
+  "step": 50000,
+  "defaultRevenue": 750000,
+  "growthMultiple": 2.45
+}

@@ -1,0 +1,98 @@
+{
+  "caseStudies": {
+    "section": {
+      "badge": "PROVEN TRACK RECORD",
+      "title": "Enterprise Case Studies by",
+      "titleHighlight": "Business Developer",
+      "description": "Real transformation stories from industry leaders scaling revenue, geographic reach, and market share.",
+      "verifiedLabel": "Verified Enterprise Study",
+      "requestDeckCta": "Request Full Case Study Deck"
+    },
+    "items": [
+      {
+        "id": "p1",
+        "title": "Global Supply Chain & Logistics Expansion",
+        "category": "Enterprise Scaling",
+        "growth": "+280% Revenue Surge",
+        "description": "Overhauled regional distribution networks, integrated automated predictive routing, and optimized vendor contracts across 14 trade channels.",
+        "image": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=85",
+        "client": "LogiGlobal Enterprise",
+        "timeline": "12 Month Rollout"
+      },
+      {
+        "id": "p2",
+        "title": "Multi-City Retail Chain Expansion",
+        "category": "Geographic Scale",
+        "growth": "45 New Regional Hubs",
+        "description": "Executed feasibility modeling and location optimization strategies, expanding retail footprint across 6 major economic corridors seamlessly.",
+        "image": "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=1200&q=85",
+        "client": "Apex Retail Group",
+        "timeline": "18 Month Expansion"
+      },
+      {
+        "id": "p3",
+        "title": "Fintech Platform Operations Modernization",
+        "category": "Digital Innovation",
+        "growth": "3.5M Active Users Scaled",
+        "description": "Revamped user journeys and regulatory compliance positioning, unlocking institutional funding and rapid market adoption.",
+        "image": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=85",
+        "client": "PayPulse Technologies",
+        "timeline": "9 Month Modernization"
+      }
+    ]
+  },
+  "roadmap": {
+    "section": {
+      "badge": "4-STEP PROCESS",
+      "title": "Roadmap to Market Dominance",
+      "description": "A structured, repeatable execution process that drives predictable growth."
+    },
+    "steps": [
+      {
+        "step": "01",
+        "title": "Diagnostic Audit",
+        "desc": "In-depth assessment of your sales funnels, unit economics, and operational bottlenecks."
+      },
+      {
+        "step": "02",
+        "title": "Strategy Blueprint",
+        "desc": "Custom expansion playbook with clear milestones, KPI assignments, and financial targets."
+      },
+      {
+        "step": "03",
+        "title": "Execution & Automation",
+        "desc": "Deploying automated sales workflows, team enablement, and CRM channel optimization."
+      },
+      {
+        "step": "04",
+        "title": "Scaling & Continuous ROI",
+        "desc": "Continuous performance tracking, expanding into secondary markets, and maximizing enterprise value."
+      }
+    ]
+  },
+  "roiCalculator": {
+    "section": {
+      "badge": "FINANCIAL SIMULATOR",
+      "title": "Interactive Growth & ROI Simulator",
+      "description": "Adjust your current baseline revenue to simulate projected growth multiples and efficiency gains delivered by Business Developer strategy.",
+      "baselineLabel": "Baseline Annual Revenue:",
+      "rangeLabels": ["$100,000", "$2,500,000", "$5,000,000+"],
+      "projectedLabel": "Projected 12-Mo Revenue",
+      "efficiencyLabel": "Operational Efficiency",
+      "efficiencySub": "Overhead Reduced",
+      "multipleLabel": "Target Growth Multiple",
+      "multipleSub": "Audited Portfolio Avg",
+      "cta": "Request Custom Financial Forecast"
+    },
+    "minRevenue": 100000,
+    "maxRevenue": 5000000,
+    "step": 50000,
+    "defaultRevenue": 750000,
+    "growthMultiple": 2.45
+  },
+  "ctaBanner": {
+    "title": "Ready to Accelerate Your Enterprise Growth?",
+    "description": "Connect with Business Developer experts today for a confidential, custom growth analysis tailored to your organization.",
+    "button": "Book Your Strategic Consultation"
+  }
+}

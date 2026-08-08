@@ -1,5 +1,10 @@
 
 
+import type { HomePageContent } from '@/types/home-page';
+
+
+export type PageContent = HomePageContent;
+
 const DEFAULT_API_BASE_URL = 'http://localhost:3001/api/v1';
 
 export const API_BASE_URL =
@@ -20,7 +25,7 @@ export type ApiError = {
 export interface PageApiRecord {
     id: number;
     slug: string;
-    content: Record<string, any>;
+    content: PageContent;
     updatedByEmail: string | null;
     createdAt: string;
     updatedAt: string;

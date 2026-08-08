@@ -5,9 +5,13 @@ import { motion } from 'motion/react';
 import { Activity, Sparkles } from 'lucide-react';
 import { chartDataMap, chartQuarters } from '@/lib/data/chartData';
 import { ChartQuarter } from '@/types';
-import { heroDashboardData } from '@/lib/data/heroDashboard';
+import type { HeroDashboardData } from '@/lib/data/heroDashboard';
 
-export function HeroDashboard() {
+interface HeroDashboardProps {
+  data: HeroDashboardData;
+}
+
+export function HeroDashboard({ data: heroDashboardData }: HeroDashboardProps) {
   // safe default quarter: take last defined quarter if available, otherwise fallback to 'Q5'
   const defaultQuarter = (chartQuarters && chartQuarters.length > 0
     ? (chartQuarters[chartQuarters.length - 1] as ChartQuarter)

@@ -2,8 +2,11 @@
 
 import { motion } from 'motion/react';
 import { TrendingUp, Zap, Target, Award, Building2, BarChart3, Check } from 'lucide-react';
-import { services } from '@/lib/data/services';
 import { ServiceCard } from '@/types';
+
+interface ServicesSectionProps {
+  services: ServiceCard[];
+}
 
 const iconMap: Record<ServiceCard['icon'], React.ComponentType<{ size?: number }>> = {
   TrendingUp,
@@ -14,7 +17,7 @@ const iconMap: Record<ServiceCard['icon'], React.ComponentType<{ size?: number }
   BarChart3,
 };
 
-export function ServicesSection() {
+export function ServicesSection({ services }: ServicesSectionProps) {
   return (
     <section id="services-section" className="py-16 sm:py-24 px-6 max-w-7xl mx-auto w-full">
       <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
