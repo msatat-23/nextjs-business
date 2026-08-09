@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { HeaderSkeleton } from '@/components/skeletons/headerSkeleton';
+import { FooterSkeleton } from '@/components/skeletons/footerSkeleton';
 import './globals.css';
 import QueryClientProviderWrapper from '@/providers/query-client-provider';
 
@@ -23,9 +26,13 @@ export default function RootLayout({
       <body>
         <QueryClientProviderWrapper>
           <div className="min-h-screen flex flex-col bg-[#030712] text-[#f9fafb]">
-            <Header />
+            <Suspense fallback={<HeaderSkeleton />}>
+              <Header />
+            </Suspense>
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Suspense fallback={<FooterSkeleton />}>
+              <Footer />
+            </Suspense>
           </div>
         </QueryClientProviderWrapper>
       </body>

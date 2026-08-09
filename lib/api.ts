@@ -33,6 +33,15 @@ export interface PageApiRecord<T> {
     updatedAt: string;
 }
 
+export interface ContentApiRecord<T> {
+    id: number;
+    slug: string;
+    content: T;
+    updatedByEmail: string | null;
+    createdAt: string;
+    updatedAt: string;
+}
+
 
 async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
 
@@ -45,7 +54,7 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
         ...options,
         headers,
     });
-    console.log(response)
+
 
     if (!response.ok) {
         let payload: ApiError | undefined;
@@ -71,6 +80,10 @@ async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T
 export async function fetchPageData<T>(page: string): Promise<PageApiRecord<T>> {
     return apiRequest<PageApiRecord<T>>(`/pages/${page}`);
 };
+
+export async function fetchContentData<T>(slug: string): Promise<ContentApiRecord<T>> {
+    return apiRequest<ContentApiRecord<T>>(`/contents/${slug}`);
+}
 
 export async function submitContact(
     data: ContactFormData,
