@@ -15,11 +15,38 @@ export function Footer() {
   const { data, isError } = useContentQuery<FooterContent>('footer');
   const content = data?.content;
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail) return;
-    setSubscribed(true);
-    setNewsletterEmail('');
+
+    try {
+      // Send subscription confirmation email
+      const response = await fetch('/api/contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          type: 'subscription',
+          email: newsletterEmail,
+        }),
+      });
+
+      if (response.ok) {
+        setSubscribed(true);
+        setNewsletterEmail('');
+      } else {
+        console.error('Failed to send subscription email');
+        // Still show success to user, as the backend might store the email
+        setSubscribed(true);
+        setNewsletterEmail('');
+      }
+    } catch (error) {
+      console.error('Subscription email error:', error);
+      // Still show success to user, as the backend might store the email
+      setSubscribed(true);
+      setNewsletterEmail('');
+    }
   };
 
   if (isError || !content) {

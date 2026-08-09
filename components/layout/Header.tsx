@@ -10,6 +10,7 @@ import { MobileMenu } from "./MobileMenu";
 import { ContactModal } from "@/components/contact/ContactModal";
 import { useContentQuery } from "@/hooks/use-get-content";
 import type { HeaderContent } from "@/types/header";
+import Image from "next/image";
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -19,7 +20,7 @@ export function Header() {
 
   const { data, isError } = useContentQuery<HeaderContent>("header");
   const content = data?.content;
-  console.log(content);
+
   const isHome = pathname === "/";
 
   const handleNavigate = (link: NavLink) => {
@@ -50,20 +51,13 @@ export function Header() {
             href={`${content.homeHref}`}
             className="flex items-center gap-3.5 no-underline cursor-pointer select-none"
           >
-            <div className="w-9.5 h-9.5 rounded-xl bg-gradient-to-br from-[#f43f5e] to-[#a855f7] flex items-center justify-center text-white shadow-[0_0_20px_rgba(244,63,94,0.35)] border border-white/20 shrink-0">
-              <Layers size={20} />
-            </div>
-            <div className="flex flex-col">
-              <div className="font-sans text-[1.12rem] sm:text-[1.12rem] font-black text-white tracking-wide leading-tight">
-                BUSINESS{" "}
-                <span className="bg-gradient-to-r from-[#fb7185] to-[#c084fc] bg-clip-text text-transparent">
-                  DEVELOPER
-                </span>
-              </div>
-              <div className="text-[0.62rem] tracking-[1.5px] text-gray-400 font-bold mt-0.5">
-                {content.platform}
-              </div>
-            </div>
+            <Image
+              src={content.logoIcon}
+              alt="Business Strategy"
+              width={4096}
+              height={1204}
+              className="h-16 w-auto object-contain"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1.5 bg-[#111827]/80 px-2 py-1.5 rounded-full border border-white/10">

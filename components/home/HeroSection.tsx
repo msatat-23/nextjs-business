@@ -45,7 +45,7 @@ export function HeroSection({ data, dashboard }: HeroSectionProps) {
           transition={{ duration: 0.7, ease: [0.215, 0.61, 0.355, 1] }}
         >
           <motion.div
-            className="inline-flex items-center gap-2.5 bg-[#111827]/85 border border-white/12 text-[#fca5a5] px-4 py-2 rounded-full text-[0.76rem] font-bold tracking-wider backdrop-blur-md max-w-[680px]"
+            className="inline-flex items-center gap-2.5 bg-[#111827]/85 border border-white/12 text-[#fca5a5] px-4 py-2 rounded-full text-[0.76rem] font-bold tracking-wider backdrop-blur-md max-w-[680px] mb-5"
             whileHover={{ scale: 1.03 }}
             transition={{ type: 'spring', stiffness: 400 }}
           >
@@ -53,7 +53,7 @@ export function HeroSection({ data, dashboard }: HeroSectionProps) {
             <span>{data.eyebrow}</span>
           </motion.div>
 
-          <h1 className="font-sans text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.12] tracking-tight break-words max-w-full mb-4">
+          <h1 className="font-sans text-[2.25rem] sm:text-5xl lg:text-6xl font-black text-white leading-[1.12] tracking-tight break-words max-w-full mb-4">
             {renderHeroTitle(data.title, data.highlight)}
           </h1>
 

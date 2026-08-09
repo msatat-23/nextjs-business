@@ -36,7 +36,7 @@ export function HeroDashboard({ data: heroDashboardData }: HeroDashboardProps) {
       transition={{ duration: 0.8, delay: 0.15 }}
     >
       <motion.div
-        className="absolute -top-4 right-4 z-20 inline-flex items-center gap-1.5 bg-[#111827] border border-[#f43f5e]/40 text-[#fb7185] px-3.5 py-1.5 rounded-full text-[0.72rem] font-bold shadow-[0_6px_18px_rgba(0,0,0,0.6)]"
+        className="absolute -top-6 sm:-top-4 right-4 z-20 inline-flex items-center gap-1.5 bg-[#111827] border border-[#f43f5e]/40 text-[#fb7185] px-3.5 py-1.5 rounded-full text-[0.72rem] font-bold shadow-[0_6px_18px_rgba(0,0,0,0.6)]"
         animate={{ y: [0, -8, 0] }}
         transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut' }}
       >

@@ -435,10 +435,13 @@ export function ContactForm({
                   from-[#f43f5e]
                   via-[#e11d48]
                   to-[#9333ea]
-                  px-8
-                  py-4
+                  px-6
+                  sm:px-8
+                  py-3.5
+                  sm:py-4
                   font-sans
-                  text-[1.05rem]
+                  text-[0.95rem]
+                  sm:text-[1.05rem]
                   font-extrabold
                   text-white
                   shadow-[0_4px_20px_rgba(244,63,94,0.4)]
@@ -448,15 +451,17 @@ export function ContactForm({
                   hover:shadow-[0_6px_25px_rgba(244,63,94,0.6)]
                   disabled:cursor-not-allowed
                   disabled:opacity-50
+                  disabled:hover:translate-y-0
+                  active:scale-[0.98]
                 "
               >
                 {isSubmitting ? (
                   <span>{form.loadingLabel}</span>
                 ) : (
                   <>
-                    <Send size={18} />
+                    <Send size={16} className="sm:w-[18px] sm:h-[18px] shrink-0" />
 
-                    <span>
+                    <span className="truncate">
                       {form.submitLabel}
                     </span>
                   </>

@@ -199,13 +199,13 @@ export function SectorPlaybooksSlider({ items }: SectorPlaybooksSliderProps) {
 
         <div className="flex items-center justify-between px-2 pt-2 border-t border-white/10">
           <motion.button
-            className="w-10 h-10 rounded-xl bg-[#111827] border border-white/10 text-white flex items-center justify-center cursor-pointer hover:bg-white/10 transition-colors"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#111827] border border-white/20 text-white flex items-center justify-center cursor-pointer hover:bg-[#f43f5e] hover:border-[#f43f5e] transition-all shadow-lg active:scale-95"
             onClick={handlePrev}
             aria-label="Previous sector"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={20} className="sm:w-5 sm:h-5" />
           </motion.button>
 
           <div className="flex items-center gap-2">
@@ -221,13 +221,13 @@ export function SectorPlaybooksSlider({ items }: SectorPlaybooksSliderProps) {
           </div>
 
           <motion.button
-            className="w-10 h-10 rounded-xl bg-[#111827] border border-white/10 text-white flex items-center justify-center cursor-pointer hover:bg-white/10 transition-colors"
+            className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-[#111827] border border-white/20 text-white flex items-center justify-center cursor-pointer hover:bg-[#f43f5e] hover:border-[#f43f5e] transition-all shadow-lg active:scale-95"
             onClick={handleNext}
             aria-label="Next sector"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={20} className="sm:w-5 sm:h-5" />
           </motion.button>
         </div>
       </div>

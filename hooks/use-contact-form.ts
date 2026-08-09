@@ -47,14 +47,16 @@ export function useContactForm() {
             setSubmitted(true);
             reset(INITIAL_FORM_DATA);
 
-
+            // Send confirmation email to the user
             fetch('/api/contact-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
+                    type: 'contact',
                     fullName: data.fullName,
+                    email: data.email,
                 }),
             }).catch((error) => {
                 console.error('Confirmation email failed:', error);
