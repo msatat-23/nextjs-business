@@ -19,6 +19,8 @@ export interface HeroSectionData {
   primaryCta: HeroCta;
   secondaryCta: HeroCta;
   badges: HeroBadge[];
+  beforeTitle:string;
+  afterTitle:string;
 }
 
 export const heroData = json as unknown as HeroSectionData;
