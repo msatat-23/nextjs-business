@@ -1,0 +1,29 @@
+export interface FooterContent {
+    brand: string;
+    description: string;
+    navigation_title: string;
+    navigation_home_label: string;
+    navigation_home_href: string;
+    navigation_contact_label: string;
+    navigation_contact_href: string;
+    contact_title: string;
+    email_icon: string;
+    email: string;
+    phone_icon: string;
+    phone: string;
+    location_icon: string;
+    location: string;
+    advisory_button_label: string;
+    advisory_button_icon: string;
+    newsletter_title: string;
+    newsletter_description: string;
+    newsletter_input_type: string;
+    newsletter_input_placeholder: string;
+    newsletter_input_required: boolean;
+    newsletter_button_label: string;
+    newsletter_button_icon: string;
+    newsletter_success_icon: string;
+    newsletter_success_message: string;
+    copyright: string;
+    technology: string;
+}

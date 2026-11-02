@@ -1,0 +1,16 @@
+{
+    "brand": "BUSINESS DEVELOPER",
+    "platform": "ENTERPRISE PLATFORM",
+    "logoIcon": "Layers",
+    "homeLabel": "Home",
+    "homeHref": "/",
+    "homeSectionId": "",
+    "contactLabel": "Contact",
+    "contactHref": "/contact",
+    "contactSectionId": "",
+    "consultationLabel": "Book Consultation",
+    "consultationIcon": "ArrowUpRight",
+    "consultationAction": "openContactModal",
+    "mobileMenuIcon": "Menu",
+    "mobileMenuCloseIcon": "X"
+}

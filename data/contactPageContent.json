@@ -1,0 +1,37 @@
+{
+  "hero": {
+    "badge": "Direct Enterprise Consultation",
+    "title": "Connect with",
+    "titleHighlight": "Business Developer",
+    "description": "Schedule an executive discovery call with our principal strategists to evaluate scale opportunities and refine your unit economics.",
+    "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80",
+    "imageAlt": "Enterprise Advisory Team"
+  },
+  "form": {
+    "title": "Request Executive Advisory",
+    "description": "Complete the consultation brief below and a Senior Business Developer advisor will prepare a preliminary audit for your organization.",
+    "successTitle": "Advisory Request Submitted!",
+    "successMessage": "Thank you for reaching out. A Senior Growth Director has been assigned to review your inquiry and will reach out within 24 business hours.",
+    "submitAnother": "Submit Another Consultation Request",
+    "submitLabel": "Request Strategic Advisory Session",
+    "loadingLabel": "Processing Brief...",
+    "fields": {
+      "fullName": {
+        "label": "Full Name",
+        "placeholder": "e.g. Jonathan Vance"
+      },
+      "phone": {
+        "label": "Direct Phone",
+        "placeholder": "+1 (555) 019-2834"
+      },
+      "jobTitle": {
+        "label": "Job Title",
+        "placeholder": "e.g. Chief Revenue Officer"
+      },
+      "email": {
+        "label": "Corporate Email",
+        "placeholder": "j.vance@enterprise.com"
+      }
+    }
+  }
+}
