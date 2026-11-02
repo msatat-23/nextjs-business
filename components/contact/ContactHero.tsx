@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import { Sparkles } from 'lucide-react';
-import type { ContactPageContent } from '@/types/contact-page';
+import type { ContactPageContentType } from '@/types/contact-page';
 
 interface ContactHeroProps {
-  hero: ContactPageContent['hero'];
+  hero: ContactPageContentType['hero'];
 }
 
 export function ContactHero({ hero }: ContactHeroProps) {

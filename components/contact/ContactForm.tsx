@@ -11,12 +11,12 @@ import {
 } from 'lucide-react';
 import { Controller } from 'react-hook-form';
 
-import type { ContactPageContent } from '@/types/contact-page';
+import type { ContactPageContentType } from '@/types/contact-page';
 import { PhoneInput } from './PhoneInput';
 import { useContactForm } from '../../hooks/use-contact-form';
 
 interface ContactFormProps {
-  form: ContactPageContent['form'];
+  form: ContactPageContentType['form'];
 }
 
 export function ContactForm({
